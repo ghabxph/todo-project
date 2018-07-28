@@ -12,10 +12,13 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckIfUserIsLoggedIn;
 
 Route::get('/', function() {
     return redirect('/login');
 });
 Route::get('/login', 'LoginController@showLoginPage');
 Route::post('/login', 'LoginController@doLogin');
-Route::get('/sample', 'Sample\\AnotherController@showSamplePage');
+Route::group(['middleware' => CheckIfUserIsLoggedIn::class], function() {
+    Route::get('/sample', 'Sample\\AnotherController@showSamplePage');
+});;

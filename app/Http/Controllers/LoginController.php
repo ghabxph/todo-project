@@ -101,6 +101,7 @@ class LoginController extends Controller
      */
     private function proceedToResourceIfCredentialIsCorrect(): RedirectResponse
     {
+        session(['username' => $this->oRequest->input('username')]);
         return redirect('/sample');
     }
 }
